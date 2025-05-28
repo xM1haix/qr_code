@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:qr_code/splashscreen.dart';
+import 'package:qr_code/home.dart';
 
-void main() => runApp(const App());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(const App());
+}
+
+ThemeData _generateThemeData(bool isDark) => ThemeData(
+      brightness: isDark ? Brightness.dark : Brightness.light,
+      appBarTheme: AppBarTheme(centerTitle: true),
+    );
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -10,8 +18,9 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: ThemeData.dark(),
-      home: const SplashScreen(),
+      theme: _generateThemeData(false),
+      darkTheme: _generateThemeData(true),
+      home: const Home(),
     );
   }
 }

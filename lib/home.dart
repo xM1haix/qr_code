@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:qr_code/history_page.dart';
+import 'package:qr_code/navigation_helper.dart';
+import 'package:qr_code/scanner_page.dart';
+import 'package:qr_code/settings_page.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -10,19 +12,43 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  var _index = 0;
+  final _data = [
+    NavigationHelper(
+      title: "Scanner",
+      page: ScannerPage(),
+      icon: Icons.camera_alt_outlined,
+      activeIcon: Icons.camera_alt,
+    ),
+    NavigationHelper(
+      title: "History",
+      page: HistoryPage(),
+      icon: Icons.history_outlined,
+      activeIcon: Icons.history,
+    ),
+    NavigationHelper(
+      title: "Settings",
+      page: SettingsPage(),
+      icon: Icons.settings_outlined,
+      activeIcon: Icons.settings,
+    )
+  ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Mobile Scanner')),
-      body: MobileScanner(
-        onDetect: (capture) {
-          final List<Barcode> barcodes = capture.barcodes;
-          final Uint8List? image = capture.image;
-          print(image);
-          for (final barcode in barcodes) {
-            debugPrint('Barcode found! ${barcode.rawValue}');
-          }
-        },
+      appBar: AppBar(
+        title: Text(_data[_index].title),
+      ),
+      body: _data[_index].page,
+      bottomNavigationBar: BottomNavigationBar(
+        selectedIconTheme: IconThemeData(size: 40),
+        showUnselectedLabels: false,
+        currentIndex: _index,
+        selectedItemColor: Colors.blue,
+        items: _data.map((e) => e.bottomNavigationBarItem).toList(),
+        onTap: (x) => setState(() {
+          _index = x;
+        }),
       ),
     );
   }
