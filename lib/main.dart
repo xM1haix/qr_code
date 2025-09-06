@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
-import 'package:qr_code/home.dart';
+import "package:flutter/material.dart";
+import "package:qr_code/home.dart";
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -8,7 +8,7 @@ void main() {
 
 ThemeData _generateThemeData(bool isDark) => ThemeData(
       brightness: isDark ? Brightness.dark : Brightness.light,
-      appBarTheme: AppBarTheme(centerTitle: true),
+      appBarTheme: const AppBarTheme(centerTitle: true),
     );
 
 class App extends StatelessWidget {

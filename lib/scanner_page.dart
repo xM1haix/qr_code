@@ -1,7 +1,9 @@
-import 'package:flutter/material.dart';
-import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:qr_code/popup.dart';
-import 'package:qr_code/scanned.dart';
+import "dart:async";
+
+import "package:flutter/material.dart";
+import "package:mobile_scanner/mobile_scanner.dart";
+import "package:qr_code/popup.dart";
+import "package:qr_code/scanned.dart";
 
 class ScannerPage extends StatefulWidget {
   const ScannerPage({super.key});
@@ -11,7 +13,7 @@ class ScannerPage extends StatefulWidget {
 }
 
 class _ScannerPageState extends State<ScannerPage> {
-  bool _isScannable = true;
+  var _isScannable = true;
   final _controller = MobileScannerController();
   @override
   Widget build(BuildContext context) {
@@ -22,15 +24,19 @@ class _ScannerPageState extends State<ScannerPage> {
   }
 
   Future<void> _scaned(BarcodeCapture barcodeCapture) async {
-    if (!_isScannable) return;
+    if (!_isScannable) {
+      return;
+    }
     _isScannable = false;
-    loading(context);
+    unawaited(loading(context));
     final x = barcodeCapture.barcodes
         .map((e) => e.rawValue)
         .toList()
         .firstWhere((e) => e != null)!;
     await Scanned.insert(x);
-    if (!mounted) return;
+    if (!mounted) {
+      return;
+    }
     back(context);
     await popup(
       context,

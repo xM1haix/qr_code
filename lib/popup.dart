@@ -1,16 +1,20 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 void back<T>(BuildContext context, [T? response]) =>
     Navigator.of(context).pop(response);
 
-Future<void> loading(BuildContext context) => popup(context,
-    content: Center(child: CircularProgressIndicator.adaptive()));
+Future<void> loading(BuildContext context) => popup(
+      context,
+      content: const Center(child: CircularProgressIndicator.adaptive()),
+    );
 
-Future<T> popup<T>(BuildContext context,
-        {String? title,
-        List<PopupAction<T>> actions = const [],
-        Widget? content,
-        bool barrierDismissible = false}) async =>
+Future<T> popup<T>(
+  BuildContext context, {
+  String? title,
+  List<PopupAction<T>> actions = const [],
+  Widget? content,
+  bool barrierDismissible = false,
+}) async =>
     await showDialog(
       barrierDismissible: barrierDismissible,
       context: context,
@@ -18,16 +22,18 @@ Future<T> popup<T>(BuildContext context,
         title: title == null ? null : Text(title),
         content: content,
         actions: actions
-            .map((e) => TextButton(
-                  onPressed: () => back(context, e.value),
-                  child: Text(e.text),
-                ))
+            .map(
+              (e) => TextButton(
+                onPressed: () => back(context, e.value),
+                child: Text(e.text),
+              ),
+            )
             .toList(),
       ),
     );
 
 class PopupAction<T> {
+  PopupAction(this.text, [this.value]);
   final String text;
   final T? value;
-  PopupAction(this.text, [this.value]);
 }

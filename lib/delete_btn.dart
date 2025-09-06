@@ -1,14 +1,14 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class DeleteBtn extends StatelessWidget {
-  final void Function()? onPressed;
   const DeleteBtn({required this.onPressed, super.key});
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: onPressed,
-      icon: Icon(
+      icon: const Icon(
         Icons.delete_outline,
         color: Colors.red,
       ),

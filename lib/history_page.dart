@@ -1,20 +1,24 @@
-import 'dart:math';
+import "dart:math";
 
-import 'package:flutter/material.dart';
-import 'package:qr_code/delete_btn.dart';
-import 'package:qr_code/scanned.dart';
+import "package:flutter/material.dart";
+import "package:qr_code/delete_btn.dart";
+import "package:qr_code/scanned.dart";
 
 bool? checkSelected(List<Scanned> data) {
   final any = data.any((e) => e.selected);
-  if (!any) return false;
+  if (!any) {
+    return false;
+  }
   final every = data.every((e) => e.selected);
-  if (every) return true;
+  if (every) {
+    return true;
+  }
   return null;
 }
 
 int countSelected(List<Scanned> data) {
   var counter = 0;
-  for (var e in data) {
+  for (final e in data) {
     if (e.selected) {
       counter++;
     }
@@ -32,7 +36,7 @@ class HistoryPage extends StatefulWidget {
 class _HistoryPageState extends State<HistoryPage> {
   final _controller = ScrollController();
   late Future<List<Scanned>> _future;
-  bool _isSelectable = false;
+  var _isSelectable = false;
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
@@ -46,7 +50,7 @@ class _HistoryPageState extends State<HistoryPage> {
             );
           }
           if (!s.hasData) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator.adaptive(),
             );
           }
@@ -70,7 +74,7 @@ class _HistoryPageState extends State<HistoryPage> {
                           });
                           return;
                         }
-                        print("copy");
+                        debugPrint("copy");
                       },
                       subtitle: Text(
                         e.dateTime.toString(),
@@ -90,8 +94,8 @@ class _HistoryPageState extends State<HistoryPage> {
                       trailing: _isSelectable
                           ? null
                           : DeleteBtn(
-                              onPressed: () {
-                                e.delete();
+                              onPressed: () async {
+                                await e.delete();
                                 setState(() {
                                   x.remove(e);
                                 });
@@ -109,7 +113,7 @@ class _HistoryPageState extends State<HistoryPage> {
                   right: 10,
                   bottom: 10,
                   child: Container(
-                    padding: EdgeInsets.all(10),
+                    padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.onPrimary,
                       borderRadius: BorderRadius.circular(15),
@@ -118,20 +122,23 @@ class _HistoryPageState extends State<HistoryPage> {
                       children: [
                         IconButton(
                           onPressed: () {
-                            for (var e in x) {
-                              e.selected = check == true ? false : true;
+                            for (final e in x) {
+                              e.selected = check ?? false ? false : true;
                             }
                             setState(() {});
                           },
-                          icon: Icon(switch (check) {
-                            true => Icons.check_box_outlined,
-                            false => Icons.check_box_outline_blank_outlined,
-                            null => Icons.indeterminate_check_box_outlined,
-                          }),
+                          icon: Icon(
+                            switch (check) {
+                              true => Icons.check_box_outlined,
+                              false => Icons.check_box_outline_blank_outlined,
+                              null => Icons.indeterminate_check_box_outlined,
+                            },
+                          ),
                         ),
                         Expanded(
                           child: Text(
-                              "$counter element${counter == 1 ? "" : "s"} selected"),
+                            "$counter element${counter == 1 ? "" : "s"} selected",
+                          ),
                         ),
                         DeleteBtn(
                           onPressed: () {},
@@ -142,8 +149,8 @@ class _HistoryPageState extends State<HistoryPage> {
                               _isSelectable = false;
                             });
                           },
-                          icon: Icon(Icons.close),
-                        )
+                          icon: const Icon(Icons.close),
+                        ),
                       ],
                     ),
                   ),

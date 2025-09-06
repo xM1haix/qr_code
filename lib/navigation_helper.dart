@@ -1,9 +1,6 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class NavigationHelper {
-  final Widget page;
-  final String title;
-  final IconData _icon, _activeIcon;
   NavigationHelper({
     required this.title,
     required this.page,
@@ -11,6 +8,10 @@ class NavigationHelper {
     required IconData activeIcon,
   })  : _activeIcon = activeIcon,
         _icon = icon;
+  final Widget page;
+  final String title;
+  final IconData _icon;
+  final IconData _activeIcon;
 
   BottomNavigationBarItem get bottomNavigationBarItem =>
       BottomNavigationBarItem(

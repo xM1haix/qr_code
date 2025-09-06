@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -18,11 +18,11 @@ class _SettingsPageState extends State<SettingsPage> {
         children: [
           ListTile(
             onTap: () {},
-            title: Text("Theme mode"),
+            title: const Text("Theme mode"),
           ),
           ListTile(
             onTap: () async {},
-            title: Text("Clean history?"),
+            title: const Text("Clean history?"),
           ),
         ],
       ),

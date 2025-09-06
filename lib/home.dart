@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:qr_code/history_page.dart';
-import 'package:qr_code/navigation_helper.dart';
-import 'package:qr_code/scanner_page.dart';
-import 'package:qr_code/settings_page.dart';
+import "package:flutter/material.dart";
+import "package:qr_code/history_page.dart";
+import "package:qr_code/navigation_helper.dart";
+import "package:qr_code/scanner_page.dart";
+import "package:qr_code/settings_page.dart";
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -16,22 +16,22 @@ class _HomeState extends State<Home> {
   final _data = [
     NavigationHelper(
       title: "Scanner",
-      page: ScannerPage(),
+      page: const ScannerPage(),
       icon: Icons.camera_alt_outlined,
       activeIcon: Icons.camera_alt,
     ),
     NavigationHelper(
       title: "History",
-      page: HistoryPage(),
+      page: const HistoryPage(),
       icon: Icons.history_outlined,
       activeIcon: Icons.history,
     ),
     NavigationHelper(
       title: "Settings",
-      page: SettingsPage(),
+      page: const SettingsPage(),
       icon: Icons.settings_outlined,
       activeIcon: Icons.settings,
-    )
+    ),
   ];
   @override
   Widget build(BuildContext context) {
@@ -41,7 +41,7 @@ class _HomeState extends State<Home> {
       ),
       body: _data[_index].page,
       bottomNavigationBar: BottomNavigationBar(
-        selectedIconTheme: IconThemeData(size: 40),
+        selectedIconTheme: const IconThemeData(size: 40),
         showUnselectedLabels: false,
         currentIndex: _index,
         selectedItemColor: Colors.blue,
