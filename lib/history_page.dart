@@ -81,9 +81,11 @@ class _HistoryPageState extends State<HistoryPage> {
                         });
                       },
                       leading: _isSelectable
-                          ? Icon(e.selected
-                              ? Icons.check_box_outlined
-                              : Icons.check_box_outline_blank)
+                          ? Icon(
+                              e.selected
+                                  ? Icons.check_box_outlined
+                                  : Icons.check_box_outline_blank,
+                            )
                           : null,
                       trailing: _isSelectable
                           ? null
@@ -116,7 +118,6 @@ class _HistoryPageState extends State<HistoryPage> {
                       children: [
                         IconButton(
                           onPressed: () {
-                            final cache = check;
                             for (var e in x) {
                               e.selected = check == true ? false : true;
                             }
